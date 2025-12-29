@@ -108,4 +108,10 @@ mod tests {
         let result = parse_distances_angles(distances_angles).unwrap();
         assert_eq!(result, expected);
     }
+
+    #[test]
+    fn test_parse_distances_angles_pair() {
+        let result = parse_distances_angles_pair("800,5");
+        assert_eq!(result.unwrap(), (800_f64, 5_f64));
+    }
 }
