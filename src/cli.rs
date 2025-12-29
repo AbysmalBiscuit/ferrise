@@ -18,12 +18,14 @@ pub struct Cli {
     pub distances_angles: Vec<(f64, f64)>,
 }
 
+/// Type of angle input data.
 #[derive(Debug, Clone, Copy, PartialEq, PartialOrd, Eq, Ord, ValueEnum)]
 pub enum AngleType {
     Degrees,
     Radians,
 }
 
+/// Error enum used by functions that parse elevation change series.
 #[derive(thiserror::Error, Debug)]
 pub(crate) enum CliParseError {
     #[error("Distance cannot be empty")]
@@ -62,6 +64,21 @@ pub fn parse_distances_angles(
         .collect()
 }
 
+/// Parses input distance-angle pair data.
+///
+/// # Arguments
+///
+/// * `distances_angles_pair` - &str single pair of distance and angle to parse. The values should
+///   be separated by a comma.
+///
+/// # Returns
+/// Result<(f64, f64), CliParseError> Result enum variant containing either the successfully parsed
+/// numeric tuple or an error.
+///
+/// # Examples
+/// ```rust
+/// let result = parse_distances_angles_pair("800,5"); // result = (800_f64, 5_f64);
+/// ```
 pub fn parse_distances_angles_pair(
     distances_angles_pair: &str,
 ) -> Result<(f64, f64), CliParseError> {
